@@ -15,8 +15,8 @@ resource "tls_private_key" "vook_rails_ssh_key_private" {
 # - Windowsの場合はフォルダを"\\"で区切る（エスケープする必要がある）
 # - [terraform apply] 実行後はクライアントPCの公開鍵は自動削除される
 locals {
-  public_key_file  = "~/.ssh/${var.key_name}.id_rsa.pub"
-  private_key_file = "~/.ssh/${var.key_name}.id_rsa"
+  public_key_file  = "/Users/ozawaatsushi/.ssh/${var.key_name}.id_rsa.pub"
+  private_key_file = "/Users/ozawaatsushi/.ssh/${var.key_name}.id_rsa"
 }
 
 resource "local_file" "vook_rails_ssh_key_private_pem" {
