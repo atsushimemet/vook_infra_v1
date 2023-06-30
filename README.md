@@ -3,12 +3,56 @@
 
 # 手順
 
-- 検証環境を作成するためのIAMを作成する。
-- このディレクトリをクライアントPCの任意の場所にcloneする。
+- 検証環境を作成するためのIAMを作成 & クレデンシャルとキー情報を移動する。
+  - 録画: https://drive.google.com/file/d/1UhMwayWxjdp6ymMVP5nYPG01qVmCuO69/view?usp=drive_link
+- AWS CLI インストールする。
+  - 以下のコマンドでバージョンが表示されていればOK
+```
+aws --version
+```
+- AWS CLI 認証情報の設定
+```
+aws configure # ターミナルで実行。
+AWS Access Key ID [None]: 上記で作成した [アクセスキー ID]
+AWS Secret Access Key [None]: 上記で作成した [シークレットアクセスキー]
+Default region name [None]: ap-northeast-1
+Default output format [None]: 何も入力せずにEnterキーを押下
+```
+- terraform.tfvarsを作成する。
+```
+touch terraform.tfvars
+```
+- terraform.tfvarsを開き、アクセスキーと、シークレットキーを設定する。
+```
+code terraform.tfvars
+```
+```
+access_key = "<アクセスキー>"
+secret_key = "<シークレットキー>"
+```
+- Terraformをインストールする。
+  - https://developer.hashicorp.com/terraform/downloads
+  - 以下のコマンドでバージョンが表示されていればOK
+```
+terraform -v
+```
+- vook_infra_v1をクライアントPCの任意の場所にcloneする。
 ```
 git clone git@github.com:atsushimemet/vook_infra_v1.git
 ```
-- a
+- 以下手順を実行する。録画参照のこと
+  - terraform initでワークスペースを初期化
+    - Terraform has been successfully initialized!が出力されればOK。
+  - terraform validateでtfファイルの構文チェック
+    - Success! The configuration is valid.が出力されればOK。
+  - terraform planで実行計画を作成
+    - 実行は任意
+  - terraform applyでリソースを作成
+    - Enter a value: が表示されたらyesを押下
+  - terraform showで作成したリソースを確認
+  - 録画: https://drive.google.com/file/d/1Uivm_tmH2gRkMVGkqF548-pNG1NpV7Gs/view?usp=drive_link
+- terraformで作成したEC2にSSH接続する。録画参照のこと
+  - 録画: https://drive.google.com/file/d/1k3-fOpigkZZx318op1yOMYzDKFWNO_Xf/view?usp=drive_link
 
 # 参考
 
