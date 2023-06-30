@@ -15,19 +15,19 @@ resource "tls_private_key" "vook_rails_ssh_key_private" {
 # - Windowsの場合はフォルダを"\\"で区切る（エスケープする必要がある）
 # - [terraform apply] 実行後はクライアントPCの公開鍵は自動削除される
 locals {
-  public_key_file  = "/Users/ozawaatsushi/.ssh/${var.key_name}.id_rsa.pub"
-  private_key_file = "/Users/ozawaatsushi/.ssh/${var.key_name}.id_rsa"
+  public_key_file  = ".ssh/${var.key_name}.id_rsa.pub"
+  private_key_file = ".ssh/${var.key_name}.id_rsa"
 }
 
 resource "local_file" "vook_rails_ssh_key_private_pem" {
-  filename = "${local.private_key_file}"
-  content  = "${tls_private_key.vook_rails_ssh_key_private.private_key_pem}"
+  filename = local.private_key_file
+  content  = tls_private_key.vook_rails_ssh_key_private.private_key_pem
 }
 
 # 上記で作成した公開鍵をAWSのKey pairにインポート
 resource "aws_key_pair" "vook_rails_ssh_key_pair" {
-  key_name   = "${var.key_name}"
-  public_key = "${tls_private_key.vook_rails_ssh_key_private.public_key_openssh}"
+  key_name   = var.key_name
+  public_key = tls_private_key.vook_rails_ssh_key_private.public_key_openssh
 }
 
 # ---------------------------
@@ -39,14 +39,14 @@ data "aws_ssm_parameter" "amzn2_latest_ami" {
 }
 
 # EC2作成
-resource "aws_instance" "vook-rails-web"{
+resource "aws_instance" "vook-rails-web" {
   ami                         = data.aws_ssm_parameter.amzn2_latest_ami.value
   instance_type               = "t2.micro"
-  availability_zone           = "${var.az_a}"
+  availability_zone           = var.az_a
   vpc_security_group_ids      = [aws_security_group.vook_rails_sg.id]
   subnet_id                   = aws_subnet.vook_rails_public_subnet_1a.id
   associate_public_ip_address = "true"
-  key_name                    = "${var.key_name}"
+  key_name                    = var.key_name
   tags = {
     Name = "vook-rails-web"
   }
