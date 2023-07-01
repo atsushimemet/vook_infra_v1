@@ -2,7 +2,7 @@
 # EC2 Key pair
 # ---------------------------
 variable "key_name" {
-  default = "vook-rails-ssh-key"
+  default = "vook-rails-ssh-key-for-duplicated"
 }
 
 # 秘密鍵のアルゴリズム設定
