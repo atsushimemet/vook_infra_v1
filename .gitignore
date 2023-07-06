@@ -34,3 +34,5 @@ override.tf.json
 terraform.rc
 .env
 log/*.txt
+
+.ssh/
