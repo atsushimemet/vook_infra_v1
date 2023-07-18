@@ -62,3 +62,4 @@ git clone git@github.com:atsushimemet/vook_infra_v1.git
   - https://github.com/atsushimemet/tf_tutorial/blob/main/variables.tf
   - https://stackoverflow.com/questions/59583711/error-launching-source-instance-unauthorizedoperation-you-are-not-authorized-t
   - https://qiita.com/Hikosaburou/items/1d3765d85d5398e3763f
+- https://zenn.dev/suganuma/articles/fe14451aeda28f
